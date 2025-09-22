@@ -45,17 +45,24 @@ def test_generate_random_matrix_m_n_valid():
     m,n = 4,5
     matrix = generate_random_matrix_m_n(m,n)
     assert isinstance(matrix,np.ndarray)
-    assert matrix.shape==(m, n)
+    assert matrix.shape==(m,n)
 
 def test_generate_random_matrix_m_n_invalid():
     assert generate_random_matrix_m_n(1,1) is None
     assert generate_random_matrix_m_n(0,0) is None
 
 def test_scalar_product_C_basic():
-    A = np.array([[1,2], [3,4]])
+    A= np.array([[1,2], [3,4]])
     B = np.array([[5,6], [7,8]])
     result =scalar_product_C(A,B)
-    expected=np.trace(np.dot(A.T, B))
+    expected=(np.dot(A.T, B)).trace()
+    assert result==expected
+
+def test_scalar_product_C_complex():
+    A=np.array([[1+1j,2-1j],[2+3j,5j]])
+    B=np.array([[2+1j,2+1j],[4+3j,1-1j]])
+    result =scalar_product_C(A,B)
+    expected=(np.dot(np.conj(A.T), B)).trace()
     assert result==expected
 
 def test_scalar_product_C_invalid():
@@ -70,7 +77,7 @@ def test_scalar_product_basic():
     U = np.stack([U0, U1])
     V = np.stack([V0, V1])
     result=scalar_product(U, V)
-    expected = scalar_product_C(U0,V0) + scalar_product_C(U1,V1)
+    expected = scalar_product_C(U0,V0)+scalar_product_C(U1,V1)
     assert result==expected
 
 def test_scalar_product_invalid():

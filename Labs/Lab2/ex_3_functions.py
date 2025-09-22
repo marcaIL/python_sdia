@@ -129,7 +129,8 @@ def scalar_product(U,V):
 def scalar_product_C(U,V):
     """
     Returns the scalar product between two 2D matrixes.
+    In this function, we used the reminder on the inner product of complex matrices.
     """
     if (U.ndim !=2 or V.ndim !=2):
         raise Exception("Error on matrix dimensions")
-    return np.dot(U.T,V).trace()
+    return np.dot(np.conj(U.T),V).trace()
