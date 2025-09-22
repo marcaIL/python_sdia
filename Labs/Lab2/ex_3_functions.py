@@ -54,3 +54,29 @@ def DvY(Y2):
     difference=-(first-second)
     result=np.c_[first_line,difference,last_line].T
     return result
+
+
+#Complementary functions to test D operator and adjoint D*
+
+def generate_random_matrix():
+    #We fix the seed for reproducibility
+    seed =42
+    rng =np.random.default_rng(seed)
+    m = rng.integers(2,11)
+    n = rng.integers(2,11)
+    matrix = rng.random((m,n))
+    return matrix
+
+def generate_random_matrix_m_n(m,n):
+    seed =42
+    rng =np.random.default_rng(seed)
+    matrix = rng.random((m,n))
+    return matrix
+
+def scalar_product(U,V):
+    if (U.ndim !=3 or V.ndim !=3):
+        raise Exception("Error on matrix dimensions")
+    return scalar_product_C(U[0],V[0])+scalar_product_C(U[1],V[1])
+
+def scalar_product_C(U,V):
+    return np.dot(U.T,V).trace()
