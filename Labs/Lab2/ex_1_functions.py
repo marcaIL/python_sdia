@@ -6,7 +6,7 @@ import numpy as np
 In this file you will find some complementary functions used for exercise 1
 """
 
-#First definition of the density by hand
+#First definition of the gamma density by hand
 def p(x,alpha,beta):
     if (x<=0):
         return 0

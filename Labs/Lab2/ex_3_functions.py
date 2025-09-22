@@ -7,6 +7,15 @@ In this file you will find some complementary functions for exercise 3
 #Gradient functions
 
 def XDh(X):
+    """
+    Returns the horizontal gradient of the matrix X
+
+    Parameters:
+    X(np.ndarray): the input 2D matrix
+
+    Returns:
+    np.ndarray: 2D horizontal gradient matrix of X
+    """
     if (X.ndim!=2):
         raise Exception("The input array as more than two dimensions")
     shape=X.shape
@@ -20,6 +29,15 @@ def XDh(X):
     return result
 
 def DvX(X):
+    """
+    Returns the vertical gradient of the matrix X
+
+    Parameters:
+    X(np.ndarray): the input 2D matrix
+
+    Returns:
+    np.ndarray: 2D vertical gradient matrix of X
+    """
     if (X.ndim!=2):
         raise Exception("The input array as more than two dimensions")
     shape=X.shape
@@ -36,6 +54,15 @@ def DvX(X):
 #Adjoint gradient functions
 
 def YDh(Y1):
+    """
+    Returns the horizontal adjoint gradient of the matrix Y1
+
+    Parameters:
+    Y1(np.ndarray): the input 2D matrix
+
+    Returns:
+    np.ndarray: 2D horizontal adjoint gradient matrix of Y1
+    """
     first_col=(-Y1[:,0])[:, np.newaxis]
     last_col=(Y1[:,-2])[:, np.newaxis]
     #We extract the matrix used with the difference
@@ -46,6 +73,15 @@ def YDh(Y1):
     return result
 
 def DvY(Y2):
+    """
+    Returns the vertical adjoint gradient of the matrix Y2
+
+    Parameters:
+    Y1(np.ndarray): the input 2D matrix
+
+    Returns:
+    np.ndarray: 2D vertical adjoint gradient matrix of Y2
+    """
     first_line=-Y2[0].T
     last_line=Y2[-2].T
     #Matrix
@@ -59,6 +95,9 @@ def DvY(Y2):
 #Complementary functions to test D operator and adjoint D*
 
 def generate_random_matrix():
+    """
+    Returns a random matrix of random size
+    """
     #We fix the seed for reproducibility
     seed =42
     rng =np.random.default_rng(seed)
@@ -68,15 +107,29 @@ def generate_random_matrix():
     return matrix
 
 def generate_random_matrix_m_n(m,n):
+    """
+    Returns a random matrix of size (m,n)
+    """
+    if m<=1 and n<=1:
+        return None
+    #We fix the seed for reproducibility
     seed =42
     rng =np.random.default_rng(seed)
     matrix = rng.random((m,n))
     return matrix
 
 def scalar_product(U,V):
+    """
+    Returns the scalar product of a volume (tuple) of 2D matrixes.
+    """
     if (U.ndim !=3 or V.ndim !=3):
         raise Exception("Error on matrix dimensions")
     return scalar_product_C(U[0],V[0])+scalar_product_C(U[1],V[1])
 
 def scalar_product_C(U,V):
+    """
+    Returns the scalar product between two 2D matrixes.
+    """
+    if (U.ndim !=2 or V.ndim !=2):
+        raise Exception("Error on matrix dimensions")
     return np.dot(U.T,V).trace()
