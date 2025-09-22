@@ -1,3 +1,5 @@
 **.DS_Store
 env/
 
+Labs/Lab2/__pycache__/*
+Labs/Lab2/samples.npy
