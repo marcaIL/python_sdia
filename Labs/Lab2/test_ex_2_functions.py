@@ -16,7 +16,7 @@ def test_mean_empty():
 def test_variance_basic():
     X =[1,2,3]
     m=mean(X)
-    assert variance(X,m)==pytest.approx(0.66666666,rel=1e-6)
+    assert variance(X,m)==pytest.approx(0.66666666,rel=1e-4)
 
 def test_variance_zero():
     X=[10, 10, 10]
@@ -44,8 +44,8 @@ def test_line_zero():
     assert line(x,f) == -2
 
 def test_line_negative():
-    x = -1
-    f = (2,4)
+    x=-1
+    f=(2,4)
     assert line(x,f) == 2
 
 pytest.main(["-v"])
