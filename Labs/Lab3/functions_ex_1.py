@@ -81,4 +81,5 @@ def plot_brownian_motion(nb,N,x,step,rng,brownian_f):
     plt.xlabel("x")
     plt.ylabel("y")
     plt.legend()
+    plt.savefig(f"brownian_motion_{nb}_traj.png")
     plt.show()
