@@ -5,6 +5,19 @@ We put back here the functions used for TV computation in the lab 2
 
 import numpy as np
 from numba import njit,prange
+import math
+
+@njit(fastmath=True, parallel=True)
+def TV_compact(X):
+    n,m=X.shape
+    result=0.
+    for i in prange(n-1):
+        for j in range(m-1):
+            Dx=X[i,j+1]-X[i,j]
+            dV =X[i+1,j] - X[i,j]
+            result +=np.sqrt(Dx*Dx+dV*dV)
+    return result
+
 
 @njit(parallel=True, fastmath=True)
 def TV_optimised(X):
@@ -25,10 +38,11 @@ def TV_optimised(X):
 
     for i in prange(shape[0]):
         local_sum=0.0
+        g_1,g_2=grad_h[i],grad_v[i]
         for j in range(shape[1]):
-            g_1,g_2=grad_h[i,j],grad_v[i,j]
-            #We do not use any function for sqrt
-            local_sum+=np.sqrt(np.abs(g_1)**2+np.abs(g_2)**2)
+            g_11=g_1[j]
+            g_22=g_2[j]
+            local_sum+=np.sqrt(np.abs(g_11)**2+np.abs(g_22)**2)
         row_sums[i]=local_sum
 
     result=0.0
@@ -57,7 +71,7 @@ def XDh(X):
     shape=X.shape
     #To avoid using python object for better numba optimisation, we change
     #the usage of np.c_, to a classic loop for calculation
-    result=np.zeros(shape)#, dtype=np.complex128)
+    result=np.empty(shape)
     for i in prange(shape[0]):
         #We keep a range here to avoid double parallelisation
         for j in range(shape[1]-1):
@@ -84,7 +98,7 @@ def DvX(X):
 
     #As same as for XDh, we compute a classical parallel loop with numba
     #for better optimisation
-    result=np.zeros(shape)#,  dtype=np.complex128)
+    result=np.empty(shape)
     for j in prange(shape[1]):
         #We keep a range here to avoid double parallelisation
         for i in range(shape[0]-1):
