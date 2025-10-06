@@ -17,6 +17,10 @@ def knn_optimized_v1(
     int N_test,
     int K
 ):
+    """
+    KNN classification implemented in Cython, following the same approach as in ex1, but optimized by computing Euclidean distances manually in nested loops rather than using np.linalg.norm.
+    """"
+
     cdef int n_train = x_train.shape[0]
     cdef int n_features = x_train.shape[1]
     cdef int i, j, k, best_label
@@ -60,6 +64,11 @@ def knn_optimized_v2(
     int N_test,
     int K
 ):
+
+    """
+    KNN classification in Cython as in knn_optimized_v1, adding typed memoryviews to speed up computation.
+    """
+
     cdef int n_train = x_train.shape[0]
     cdef int n_features = x_train.shape[1]
     cdef int i, j, k, kk, best_label
