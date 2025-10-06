@@ -3,3 +3,5 @@ env/
 
 Labs/Lab2/__pycache__/*
 Labs/Lab2/samples.npy
+Labs/Lab4/__pycache__/*
+Labs/Lab4/example_cy/*
