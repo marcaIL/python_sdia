@@ -80,31 +80,3 @@ def DvX(X):
             result[i,j]=X[i+1,j]-X[i,j]
         result[shape[0]-1,j]=0.0
     return result
-
-
-
-#Complementary functions to test D operator and adjoint D*
-
-def generate_random_matrix():
-    """
-    Returns a random matrix of random size
-    """
-    #We fix the seed for reproducibility
-    seed =42
-    rng =np.random.default_rng(seed)
-    m = rng.integers(2,11)
-    n = rng.integers(2,11)
-    matrix = rng.random((m,n))
-    return matrix
-
-def generate_random_matrix_m_n(m,n):
-    """
-    Returns a random matrix of size (m,n)
-    """
-    if m<=1 and n<=1:
-        return None
-    #We fix the seed for reproducibility
-    seed =42
-    rng =np.random.default_rng(seed)
-    matrix = rng.random((m,n))
-    return matrix
