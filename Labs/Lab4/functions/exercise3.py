@@ -80,46 +80,6 @@ def DvX(X):
     return result
 
 
-#Adjoint gradient functions
-
-def YDh(Y1):
-    """
-    Returns the horizontal adjoint gradient of the matrix Y1
-
-    Parameters:
-    Y1(np.ndarray): the input 2D matrix
-
-    Returns:
-    np.ndarray: 2D horizontal adjoint gradient matrix of Y1
-    """
-    first_col=(-Y1[:,0])[:, np.newaxis]
-    last_col=(Y1[:,-2])[:, np.newaxis]
-    #We extract the matrix used with the difference
-    first=Y1[:,1:-1]
-    second=Y1[:,:-2]
-    difference=-(first-second)
-    result=np.c_[first_col,difference,last_col]
-    return result
-
-def DvY(Y2):
-    """
-    Returns the vertical adjoint gradient of the matrix Y2
-
-    Parameters:
-    Y1(np.ndarray): the input 2D matrix
-
-    Returns:
-    np.ndarray: 2D vertical adjoint gradient matrix of Y2
-    """
-    first_line=-Y2[0].T
-    last_line=Y2[-2].T
-    #Matrix
-    first=Y2[1:-1,:].T
-    second=Y2[:-2,:].T
-    difference=-(first-second)
-    result=np.c_[first_line,difference,last_line].T
-    return result
-
 
 #Complementary functions to test D operator and adjoint D*
 
